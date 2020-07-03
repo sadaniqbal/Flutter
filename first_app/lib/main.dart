@@ -6,9 +6,22 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return MyAppState();
+  }
+}
+
+class MyAppState extends State<MyApp> {
+  var questionIndex = 0;
+
   void answerQuestion() {
-    print('This is the answer!');
+    setState(() {
+      questionIndex = questionIndex + 1;
+    });
+
+    print(questionIndex);
   }
 
   @override
@@ -26,7 +39,9 @@ class MyApp extends StatelessWidget {
         ),
         body: Column(
           children: [
-            Text('The Question!'),
+            Text(questions.elementAt(0)),
+            Text(questions[1]),
+            Text(questions[questionIndex]),
             RaisedButton(
                 child: Text('Answer 1'),
                 color: Colors.lightGreen,
