@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import './quiz.dart';
+import './result.dart';
+
 // void main() {
 //   runApp(MyApp());
 // }
@@ -14,22 +17,61 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var questionIndex = 0;
+  final _questions = const [
+    {
+      'questionText': 'What\'s your favourite color?',
+      'answers': [
+        {'Text': 'Black', 'Score': 8},
+        {'Text': 'Blue', 'Score': 4},
+        {'Text': 'Red', 'Score': 6},
+        {'Text': 'Green', 'Score': 2},
+      ],
+    },
+    {
+      'questionText': 'What\'s your favourite animal?',
+      'answers': [
+        {'Text': 'Pink Armadillo', 'Score': 4},
+        {'Text': 'Panda', 'Score': 2},
+        {'Text': 'Lion', 'Score': 8},
+        {'Text': 'Eagle', 'Score': 6},
+      ],
+    },
+    {
+      'questionText': 'Who\'s your favourite football player?',
+      'answers': [
+        {'Text': 'Messi', 'Score': 4},
+        {'Text': 'Salah', 'Score': 2},
+        {'Text': 'Ibrahimovic', 'Score': 8},
+        {'Text': 'Ronaldo', 'Score': 6},
+      ],
+    },
+  ];
+  var _questionIndex = 0;
+  var _totalScore = 0;
 
-  void answerQuestion() {
+  void _resetQuiz() {
     setState(() {
-      questionIndex = questionIndex + 1;
+      _questionIndex = 0;
+      _totalScore = 0;
     });
+  }
 
-    print(questionIndex);
+  void _answerQuestion(int score) {
+    _totalScore += score;
+
+    setState(() {
+      _questionIndex = _questionIndex + 1;
+    });
+    print(_questionIndex);
+    if (_questionIndex < _questions.length) {
+      print('We have more questions');
+    } else {
+      print('No more questions');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    var questions = [
-      'What\'s your favourite color?',
-      'What\'s your favourite animal?',
-    ];
     return MaterialApp(
       home: Scaffold(
         backgroundColor: (Colors.green),
@@ -37,28 +79,13 @@ class _MyAppState extends State<MyApp> {
           backgroundColor: (Colors.lightGreen),
           title: Text('My First App'),
         ),
-        body: Column(
-          children: [
-            Text(questions.elementAt(0)),
-            Text(questions[1]),
-            Text(questions[questionIndex]),
-            RaisedButton(
-                child: Text('Answer 1'),
-                color: Colors.lightGreen,
-                onPressed: answerQuestion),
-            RaisedButton(
-                child: Text('Answer 2'),
-                color: Colors.lightGreen,
-                onPressed: () => print('Answer 2')),
-            RaisedButton(
-                child: Text('Answer 3'),
-                color: Colors.lightGreen,
-                onPressed: () {
-                  //....Anonymous
-                  print('Answer 3');
-                }),
-          ],
-        ),
+        body: _questionIndex < _questions.length
+            ? Quiz(
+                answerQuestion: _answerQuestion,
+                questionIndex: _questionIndex,
+                questions: _questions,
+              )
+            : Result(_totalScore, _resetQuiz),
       ),
     );
   }
