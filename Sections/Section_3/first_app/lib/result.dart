@@ -8,14 +8,14 @@ class Result extends StatelessWidget {
 
   String get resultPhrase {
     String resultText;
-    if (resultScore <= 8) {
-      resultText = 'You have the best personality ive ever known!';
-    } else if (resultScore > 8 && resultScore <= 16) {
-      resultText = 'Great you have a beautiful personality';
-    } else if (resultScore > 16 && resultScore <= 24) {
-      resultText = 'Wow you have a pretty dark tinge in your personality';
-    } else if (resultScore > 24) {
-      resultText = 'You are the darkest person ive ever analyzed :(';
+    if (resultScore <= 20) {
+      resultText = 'We are sorry, failed to pass the test! We suggest you to take the the Deep Dive Cyber Certificate @ https://www.youtube.com/watch?v=yrln8nyVBLU';
+    } else if (resultScore > 20 && resultScore <= 40) {
+      resultText = 'You could have done better, Lets try go through this tutorial provided below! https://www.youtube.com/watch?v=vPlWDFtP0T0';
+    } else if (resultScore > 40 && resultScore <= 60) {
+      resultText = 'So closeee, lets try again by pressing the button provided below';
+    } else if (resultScore > 60) {
+      resultText = 'Congrats you aced the quiz, uou seem to know alot! However this video will be useful https://www.youtube.com/watch?v=DXgYJb67Fyc';
     }
     return resultText;
   }

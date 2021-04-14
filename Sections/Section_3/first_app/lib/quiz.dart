@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 import './question.dart';
 import './answer.dart';
 
@@ -9,9 +10,9 @@ class Quiz extends StatelessWidget {
   final Function answerQuestion;
 
   Quiz({
-    @required this.questions,
-    @required this.answerQuestion,
-    @required this.questionIndex,
+    this.questions,
+    this.answerQuestion,
+    this.questionIndex,
   });
 
   @override
